@@ -31,7 +31,7 @@ using namespace std;
 CString Debug_str;
 stringstream Line_str; //需要添加 #define #include<sstream> ，using namespace std;
 
-void MFC_002::DebugText(int line_temp, const char *func_temp)
+void MFC_002::DebugText(int line_temp, const char *func_temp, int Ctlr_ID)
 {
 	 Line_str<<line_temp; 
 	 //string s1 = ss.str();
@@ -40,12 +40,12 @@ void MFC_002::DebugText(int line_temp, const char *func_temp)
 	 Debug_str += _T("," );
 	 Debug_str += func_temp;
 	 Debug_str += _T("\r\n");
-	 SetDlgItemText(IDC_EDIT_debug,Debug_str);
+	 SetDlgItemText(Ctlr_ID,Debug_str);
 	 Line_str.str(""); // 清空缓冲区
 	 #pragma region edit control自动显示到最后一行
-	 //*********edit control自动显示到最后一行***********************//
+	 //*********edit control自动显示到最后一行***********************//IDC_EDIT_debug
 	 long len=Debug_str.GetLength();
-	 ((CEdit*)GetDlgItem(IDC_EDIT_debug))->SetSel(len,len,false); // edit control自动显示到最后一行
+	 ((CEdit*)GetDlgItem(Ctlr_ID))->SetSel(len,len,false); // edit control自动显示到最后一行
 	 //((CEdit*)GetDlgItem(IDC_EDIT_Debug1))->SetFocus();   // edit control自动将光标定位到最后一行
 	 #pragma endregion
 }
@@ -89,6 +89,7 @@ END_MESSAGE_MAP()
 
 MFC_002::MFC_002(CWnd* pParent /*=NULL*/)
 	: CDialogEx(MFC_002::IDD, pParent)
+	, Edit_PW(_T(""))
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -144,7 +145,7 @@ BOOL MFC_002::OnInitDialog()
 
 	// TODO: 在此添加额外的初始化代码
 	
-	DebugText(__LINE__,__FUNCTION__); // 调试代码
+	DebugText(__LINE__,__FUNCTION__,IDC_EDIT_debug); // 调试代码
 	GetDlgItem(IDC_EDIT_PW)->ShowWindow(SW_HIDE);
 	GetDlgItem(IDC_BUTTON1)->ShowWindow(SW_HIDE);
 	GetDlgItem(IDC_STATIC_PW)->ShowWindow(SW_HIDE);
@@ -194,7 +195,7 @@ void MFC_002::OnPaint()
 		CDialogEx::OnPaint();
 	}
 	
-		DebugText(__LINE__,__FUNCTION__); // 调试代码
+		DebugText(__LINE__,__FUNCTION__,IDC_EDIT_debug); // 调试代码
 
 }
 
@@ -212,14 +213,14 @@ HCURSOR MFC_002::OnQueryDragIcon()
 void MFC_002::OnBnClickedButton1()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	DebugText(__LINE__,__FUNCTION__);// 调试代码
+	DebugText(__LINE__,__FUNCTION__,IDC_EDIT_debug);// 调试代码
 }
 
 
 void MFC_002::OnBnClickedButton2()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	DebugText(__LINE__,__FUNCTION__);// 调试代码
+	DebugText(__LINE__,__FUNCTION__,IDC_EDIT_debug);// 调试代码
 }
 
 
@@ -233,7 +234,8 @@ void MFC_002::OnBnClickedCheck1()
     int state = pBtn->GetCheck();
     if (state == 1) // 选中
     {
-		DebugText(__LINE__,__FUNCTION__); // 调试代码
+		DebugText(__LINE__,__FUNCTION__,IDC_EDIT_debug); // 调试代码
+		SetDlgItemText(IDC_EDIT_PW,_T("请输入密码" ));
 		GetDlgItem(IDC_EDIT_PW)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_BUTTON1)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_STATIC_PW)->ShowWindow(SW_SHOW);
@@ -241,7 +243,7 @@ void MFC_002::OnBnClickedCheck1()
     }
     else // 取消选中
     {
-	   DebugText(__LINE__,"未选中");// 调试代码
+	   DebugText(__LINE__,"未选中",IDC_EDIT_debug);// 调试代码
 	   
 		GetDlgItem(IDC_EDIT_PW)->ShowWindow(SW_HIDE);
 		GetDlgItem(IDC_BUTTON1)->ShowWindow(SW_HIDE);
@@ -257,7 +259,7 @@ void MFC_002::OnBnClickedCheck1()
 void MFC_002::OnBnClickedCheck2()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	DebugText(__LINE__,__FUNCTION__);// 调试代码
+	DebugText(__LINE__,__FUNCTION__,IDC_EDIT_debug);// 调试代码
 }
 
 

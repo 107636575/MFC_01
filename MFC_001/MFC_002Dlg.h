@@ -34,8 +34,9 @@ public:
 	afx_msg void OnBnClickedButton2();
 	afx_msg void OnBnClickedCheck1();
 	afx_msg void OnBnClickedCheck2();
-	void DebugText(int line_temp, const char *func_temp);
+	void DebugText(int line_temp, const char *func_temp,int Ctlr_ID);
 	afx_msg void OnBnClickedBtnPwsubmit();
 	afx_msg void OnBnClickedOk();
 	afx_msg void OnEnChangeEditPw();
+	CString Edit_PW;
 };
